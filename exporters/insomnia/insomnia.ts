@@ -28,6 +28,12 @@ class Insomnia {
                         returnType = _.find(types, ['name', query.type.name]);
                         returnFields = this.buildReturnFields(returnType);
                     }
+
+                    if (query.type.ofType != null) {
+                        returnType = _.find(types, ['name', query.type.ofType.name]);
+                        returnFields = this.buildReturnFields(returnType);
+                    }
+
                     let schemaType = type.name == "RootQueryType" ? "query" : "mutation";
                     request.body = this.buildRequestText(schemaType, query, returnFields);
                     rootExport.addResource(request);
@@ -41,7 +47,7 @@ class Insomnia {
     buildRequestText(schemaType: string, query: any, returnFields: string) : RequestBody {
         let endpointArgs = this.buildEndpointArgs(query.args);
         let queryArgs = this.buildQueryArgs(query.args);
-        let bodyText =  schemaType+" "+queryArgs+" { \n\t"+query.name+" "+endpointArgs+" {\n\t\t"+returnFields+"\n\t} \n}"
+        let bodyText =  schemaType+" "+queryArgs+" { \n\t"+query.name+" "+endpointArgs+" {\n"+returnFields+"\n\t} \n}"
         let variables = this.buildVariables(query.args);
         let requestBody: RequestBody = new RequestBody(bodyText, variables);
         return requestBody
@@ -54,7 +60,11 @@ class Insomnia {
 
         let argString = `(`;
         for (let i = 0; i < args.length; i++) {
-            argString += `$${args[i].name}: ${args[i].type.name}`
+            if (args[i].type.kind == 'LIST') {
+                argString += `$${args[i].name}: [${args[i].type.ofType.name}]`
+            } else {
+                argString += `$${args[i].name}: ${args[i].type.name}`
+            }
             if (i != args.length - 1) {
                 argString += ','
             }
@@ -91,7 +101,7 @@ class Insomnia {
 
         let returnValues: string = '';
         returnType.fields.forEach((field, idx) => {
-            returnValues += (field.name + (idx == returnType.fields.length - 1 ? '' : '\n'));
+            returnValues += '\t\t' + (field.name + (idx == returnType.fields.length - 1 ? '' : '\n'));
         })
         return returnValues
     }

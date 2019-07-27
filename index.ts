@@ -1,4 +1,4 @@
-import convert from './exporters'
+import { convert } from './exporters'
 
 const yargs = require('yargs');
 const argv = yargs

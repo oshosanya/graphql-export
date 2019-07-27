@@ -117,4 +117,4 @@ const getSchema = (url: string, query: string) => {
     })
 }
 
-export default convert;
+export { Insomnia, convert };

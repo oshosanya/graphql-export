@@ -4,4 +4,7 @@ This is a teeny tiny program that helps to export your graphql queries from the 
 
 ## Quick Use
 
-`ts-node index.ts -u http://my-graph-ql-server-root`
+`
+yarn install
+ts-node index.ts -u http://my-graph-ql-server-root
+`

@@ -10,6 +10,6 @@ ts-node
 ## Quick Use
 
 ```
-yarn add graphql-export
+yarn global add graphql-export
 graphql-export -u http://my-graph-ql-server-root
 ```

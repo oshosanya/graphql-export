@@ -108,7 +108,7 @@ const convert = function (url, converter) {
             const insomnia = new Insomnia
             insomnia.convert(response.data, url)
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log('Could not introspect graphql server, please check the root url'))
 }
 
 const getSchema = (url: string, query: string) => {

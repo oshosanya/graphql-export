@@ -4,8 +4,8 @@ This is a teeny tiny program that helps to export your graphql queries from the 
 
 ## Requirements
 Yarn package manager
+
 NodeJS
-ts-node 
 
 ## Quick Use
 
@@ -13,3 +13,5 @@ ts-node
 yarn global add graphql-export
 graphql-export -u http://my-graph-ql-server-root
 ```
+
+After running the command, an `export.json` file is generated which you can then import into insomnia

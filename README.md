@@ -10,6 +10,6 @@ ts-node
 ## Quick Use
 
 ```
-yarn install
-ts-node index.ts -u http://my-graph-ql-server-root
+yarn add graphql-export
+graphql-export -u http://my-graph-ql-server-root
 ```

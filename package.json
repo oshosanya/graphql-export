@@ -2,8 +2,11 @@
   "name": "graphql-export",
   "version": "1.0.0",
   "description": "Export graphql schema to other formats",
-  "main": "index.ts",
-  "repository": "https://github.com/oshosanya/graphql-export",
+  "main": "./src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oshosanya/graphql-export.git"
+  },
   "author": "Michael Oshosanya",
   "license": "MIT",
   "dependencies": {
@@ -22,7 +25,12 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
+    "build": "ncc build ./src/index.ts -o ./dist",
     "test": "jest",
     "testWithCoverage": "jest --coverage"
-  }
+  },
+  "bin": {
+    "graphql-export": "./bin/graphql-export"
+  },
+  "preferGlobal": true
 }

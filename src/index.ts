@@ -13,4 +13,7 @@ const argv = yargs
 
 if (argv.url) {
     convert(argv.url, 'insomnia');
+    process.exit()
 }
+
+yargs.showHelp();

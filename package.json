@@ -2,6 +2,7 @@
   "name": "graphql-export",
   "version": "1.0.2",
   "description": "Export graphql schema to other formats",
+  "keywords": ["graphql-export", "graphql", "insomnia", "export"],
   "main": "./src/index.ts",
   "repository": {
     "type": "git",

@@ -1,8 +1,13 @@
 {
   "name": "graphql-export",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Export graphql schema to other formats",
-  "keywords": ["graphql-export", "graphql", "insomnia", "export"],
+  "keywords": [
+    "graphql-export",
+    "graphql",
+    "insomnia",
+    "export"
+  ],
   "main": "./src/index.ts",
   "repository": {
     "type": "git",
@@ -17,12 +22,12 @@
     "yargs": "^13.3.0"
   },
   "devDependencies": {
-    "@types/node": "^12.6.8",
     "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.136",
+    "@types/node": "^12.6.8",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3",
-    "ts-node": "^8.3.0"
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "build": "ncc build ./src/index.ts -o ./dist",

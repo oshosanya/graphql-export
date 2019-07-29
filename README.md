@@ -14,4 +14,4 @@ yarn global add graphql-export
 graphql-export -u http://my-graph-ql-server-root
 ```
 
-After running the command, an `export.json` file is generated which you can then import into insomnia
+After running the command, an `export.json` file is generated which you can then import into insomnia api client

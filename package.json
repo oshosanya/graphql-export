@@ -30,6 +30,7 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
+    "prepublish": "ncc build ./src/index.ts -o ./dist",
     "build": "ncc build ./src/index.ts -o ./dist",
     "test": "jest",
     "testWithCoverage": "jest --coverage"

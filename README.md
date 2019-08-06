@@ -11,7 +11,12 @@ NodeJS
 
 ```
 yarn global add graphql-export
-graphql-export -u http://my-graph-ql-server-root
+
+// For postman exports
+graphql-export -u http://my-graph-ql-server-root -f postman
+
+//For insomnia exports
+graphql-export -u http://my-graph-ql-server-root -f postman
 ```
 
 After running the command, an `export.json` file is generated which you can then import into insomnia api client

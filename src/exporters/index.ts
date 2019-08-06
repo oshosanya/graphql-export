@@ -1,8 +1,6 @@
-'use strict';
-
-import {Insomnia} from './insomnia/insomnia';
 import axios from 'axios';
 
+const fs = require('fs');
 const
     instrospectionQuery = `
         query IntrospectionQuery {
@@ -101,14 +99,18 @@ const
 
     `;
 
-const convert = function (url, converter) {
-    const schema = getSchema(url, instrospectionQuery);
-    schema
-        .then((response) => {
-            const insomnia = new Insomnia
-            insomnia.convert(response.data, url)
-        })
-        .catch(err => console.log('Could not introspect graphql server, please check the root url'))
+const convert = async function (url, converter) {
+    const formatConverter = require(`./${converter}/${converter}`);
+    try {
+        let response = await getSchema(url, instrospectionQuery);
+        const c = Object.create(formatConverter.default.prototype)
+        let data = c.convert(response.data, url)
+        fs.writeFileSync('export.json', data);
+        console.log("File saved to export.json");
+    } catch (err) {
+        console.log(err);
+        console.log('Could not introspect graphql server, please check the root url')
+    }
 }
 
 const getSchema = (url: string, query: string) => {
@@ -117,4 +119,4 @@ const getSchema = (url: string, query: string) => {
     })
 }
 
-export { Insomnia, convert };
+export { convert };

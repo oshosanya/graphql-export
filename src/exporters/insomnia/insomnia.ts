@@ -2,10 +2,8 @@ import axios from 'axios';
 import { Root, RequestGroup, Request, RequestBody } from './types';
 const _ = require('lodash');
 
-const fs = require('fs');
-
 class Insomnia {
-    convert(schema: any, url: string) {
+    convert(schema: any, url: string): string {
         let rootExport = new Root;
         const types = schema.data.__schema.types;
         let type: any;
@@ -41,7 +39,7 @@ class Insomnia {
             }
         })
         let data = JSON.stringify(rootExport, null, 4);
-        fs.writeFileSync('export.json', data);
+        return data;
     }
 
     buildRequestText(schemaType: string, query: any, returnFields: string) : RequestBody {
@@ -107,4 +105,4 @@ class Insomnia {
     }
 }
 
-export { Insomnia };
+export default Insomnia ;

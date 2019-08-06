@@ -7,13 +7,15 @@ const argv = yargs
         alias: 'u',
         type: 'string',
     })
+    .option('format', {
+        description: 'The export format',
+        alias: 'f',
+        type: 'string',
+        choices: ['insomnia', 'postman']
+    })
+    .demandOption(['url', 'format'], 'Please provide both url and format arguments to work with this tool')
     .help()
     .alias('help', 'h')
     .argv;
 
-if (argv.url) {
-    convert(argv.url, 'insomnia');
-    process.exit()
-}
-
-yargs.showHelp();
+convert(argv.url, argv.format);

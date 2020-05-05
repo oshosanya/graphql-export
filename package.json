@@ -6,9 +6,10 @@
     "graphql-export",
     "graphql",
     "insomnia",
-    "export"
+    "export",
+    "postman"
   ],
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/oshosanya/graphql-export.git"
@@ -17,6 +18,9 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
+    "chalk": "^4.0.0",
+    "clear": "^0.1.0",
+    "figlet": "^1.4.0",
     "jest": "^24.8.0",
     "lodash": "^4.17.15",
     "yargs": "^13.3.0"
@@ -30,6 +34,7 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
+    "start": "node dist/index.js",
     "prepublish": "tsc",
     "build": "tsc",
     "test": "jest",

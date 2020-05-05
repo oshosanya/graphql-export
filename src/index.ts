@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { convert } from './exporters'
 
 const yargs = require('yargs');

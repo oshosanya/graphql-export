@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "moduleResolution": "node"
-  }
+    "target": "es3",
+    "moduleResolution": "node",
+    "outDir": "./dist"
+  },
+  "include": ["./src/"]
 }

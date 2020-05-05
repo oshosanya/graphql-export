@@ -30,13 +30,13 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
-    "prepublish": "ncc build ./src/index.ts -o ./dist",
-    "build": "ncc build ./src/index.ts -o ./dist",
+    "prepublish": "tsc",
+    "build": "tsc",
     "test": "jest",
     "testWithCoverage": "jest --coverage"
   },
   "bin": {
-    "graphql-export": "./bin/graphql-export"
+    "graphql-export": "dist/index.js"
   },
   "preferGlobal": true
 }

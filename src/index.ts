@@ -1,6 +1,16 @@
 #!/usr/bin/env node
 
 import { convert } from './exporters'
+const chalk = require('chalk');
+const clear = require('clear');
+const figlet = require('figlet');
+
+clear();
+console.log(
+    chalk.green(
+        figlet.textSync('graphql-export', { horizontalLayout: 'full' })
+    )
+);
 
 const yargs = require('yargs');
 const argv = yargs

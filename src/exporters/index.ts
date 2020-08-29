@@ -99,10 +99,17 @@ const
 
     `;
 
-const convert = async function (url, converter) {
+const convert = async function (url: string, converter: string, headers: Array<string>) {
+    let requestHeaders = {};
+    headers.forEach(header => {
+        const [key, value] = header.split(':');
+        requestHeaders[key.trim()] = value.trim();
+    });
+
     const formatConverter = require(`./${converter}/${converter}`);
+
     try {
-        let response = await getSchema(url, instrospectionQuery);
+        let response = await getSchema(url, instrospectionQuery, requestHeaders);
         const c = Object.create(formatConverter.default.prototype)
         let data = c.convert(response.data, url)
         fs.writeFileSync('export.json', data);
@@ -113,9 +120,10 @@ const convert = async function (url, converter) {
     }
 }
 
-const getSchema = (url: string, query: string) => {
+const getSchema = (url: string, query: string, requestHeaders: object) => {
     return axios.post(url, {
-        query: query
+        query: query,
+        headers: requestHeaders
     })
 }
 

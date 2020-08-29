@@ -25,9 +25,15 @@ const argv = yargs
         type: 'string',
         choices: ['insomnia', 'postman']
     })
+    .option('custom-headers', {
+        description: 'Custom headers to pass with the request to the graphql server, should be passed in form "header-name:header-value"',
+        alias: 'H',
+        type: "array",
+        default: []
+    })
     .demandOption(['url', 'format'], 'Please provide both url and format arguments to work with this tool')
     .help()
     .alias('help', 'h')
     .argv;
 
-convert(argv.url, argv.format);
+convert(argv.url, argv.format, argv['custom-headers']);

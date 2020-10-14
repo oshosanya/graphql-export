@@ -4,20 +4,20 @@ import Variable from './types/variable';
 const _ = require('lodash');
 
 class Postman {
-    convert(schema: any, url: string) {
+    convert(schema: any, url: string, rootQueryName: string, rootMutationName: string): string {
         let collection = new Collection;
         collection.info.name = url;
         let baseUrlVar = new Variable('base_url', url);
         collection.addVariable(baseUrlVar);
         const types = schema.data.__schema.types;
-        let type: any;
+
 
         types.forEach(type => {
-            if (type.name == "RootQueryType" || type.name == "RootMutationType") {
+            if (type.name == rootQueryName || type.name == rootMutationName) {
                 let folder = new Folder(type.name);
-                let query: any;
+
                 type.fields.forEach(query => {
-                    let schemaType = type.name == "RootQueryType" ? "query" : "mutation";
+                    let schemaType = type.name == rootQueryName ? "query" : "mutation";
                     let returnType;
                     let returnFields;
 
@@ -26,7 +26,7 @@ class Postman {
                         returnFields = Utils.buildReturnFields(returnType);
                     }
 
-                    if (query.type.ofType != null) {
+                    if (query.type.ofType != null && query.type.ofType.kind !== "LIST") {
                         returnType = _.find(types, ['name', query.type.ofType.name]);
                         returnFields = Utils.buildReturnFields(returnType);
                     }

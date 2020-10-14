@@ -3,18 +3,18 @@ import { Root, RequestGroup, Request, RequestBody } from './types';
 const _ = require('lodash');
 
 class Insomnia {
-    convert(schema: any, url: string): string {
+    convert(schema: any, url: string, rootQueryName: string, rootMutationName: string): string {
         let rootExport = new Root;
         const types = schema.data.__schema.types;
-        let type: any;
         let graphQLRequestsGroup = new RequestGroup(url);
         rootExport.addResource(graphQLRequestsGroup);
+
         types.forEach(type => {
-            if (type.name == "RootQueryType" || type.name == "RootMutationType") {
+            if (type.name == rootQueryName || type.name == rootMutationName) {
                 let requestGroup = new RequestGroup(type.name)
                 requestGroup.parentId = graphQLRequestsGroup._id;
                 rootExport.addResource(requestGroup);
-                let query: any;
+
                 type.fields.forEach(query => {
                     let request = new Request(query.name);
                     request.url = url
@@ -27,12 +27,12 @@ class Insomnia {
                         returnFields = this.buildReturnFields(returnType);
                     }
 
-                    if (query.type.ofType != null) {
+                    if (query.type.ofType != null && query.type.ofType.kind !== "LIST") {
                         returnType = _.find(types, ['name', query.type.ofType.name]);
                         returnFields = this.buildReturnFields(returnType);
                     }
 
-                    let schemaType = type.name == "RootQueryType" ? "query" : "mutation";
+                    let schemaType = type.name == rootQueryName ? "query" : "mutation";
                     request.body = this.buildRequestText(schemaType, query, returnFields);
                     rootExport.addResource(request);
                 })

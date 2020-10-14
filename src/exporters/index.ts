@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Insomnia from './insomnia/insomnia';
+import Postman from './postman/postman';
 
 const fs = require('fs');
 const
@@ -99,7 +101,7 @@ const
 
     `;
 
-const convert = async function (url: string, converter: string, headers: Array<string>) {
+const convert = async function (url: string, converter: string, rootQueryName: string, rootMutationName: string, headers: Array<string>) {
     let requestHeaders = {};
     headers.forEach(header => {
         const [key, value] = header.split(':');
@@ -110,8 +112,8 @@ const convert = async function (url: string, converter: string, headers: Array<s
 
     try {
         let response = await getSchema(url, instrospectionQuery, requestHeaders);
-        const c = Object.create(formatConverter.default.prototype)
-        let data = c.convert(response.data, url)
+        const converter: Insomnia | Postman = Object.create(formatConverter.default.prototype)
+        let data = converter.convert(response.data, url, rootQueryName, rootMutationName)
         fs.writeFileSync('export.json', data);
         console.log("File saved to export.json");
     } catch (err) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Root, RequestGroup, Request, RequestBody } from './types';
-const _ = require('lodash');
+const _ = require('lodash/collection');
 
 class Insomnia {
     convert(schema: any, url: string, rootQueryName: string, rootMutationName: string): string {

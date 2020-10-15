@@ -1,7 +1,7 @@
 import { Collection, Folder, Item, Request } from './types';
 import Utils from '../../utils'
 import Variable from './types/variable';
-const _ = require('lodash');
+const _ = require('lodash/collection');
 
 class Postman {
     convert(schema: any, url: string, rootQueryName: string, rootMutationName: string): string {

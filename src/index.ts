@@ -72,4 +72,4 @@ if (argv['mutation-name'] == null) {
     argv['mutation-name'] = defaultValue
 }
 
-convert(argv.url, argv.format, argv['query-name'], argv['mutation-name'], argv['custom-headers']);
+convert(argv['url'], argv['format'], argv['query-name'], argv['mutation-name'], argv['custom-headers']);

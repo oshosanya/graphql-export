@@ -2,10 +2,10 @@ class RequestGroup {
     _type: string = "request_group";
     _id: string;
     name: string;
-    parentId: string;
     created: number;
-    modified: number;
-    metaSortKey: number;
+    parentId: Maybe<string>;
+    modified: Maybe<number>;
+    metaSortKey: Maybe<number>;
 
     constructor(name: string) {
         var ts = Math.round((new Date()).getTime() / 1000);

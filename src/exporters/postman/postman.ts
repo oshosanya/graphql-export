@@ -2,7 +2,8 @@ import { Collection, Folder, Item, Request } from './types';
 import Utils from '../../utils'
 import Variable from './types/variable';
 import type { PostmanRequestBody } from './types/request';
-const _ = require('lodash/collection');
+import find = require('lodash/find');
+import { IntrospectionField, IntrospectionSchema, IntrospectionType } from 'graphql';
 
 class Postman {
     convert(schema: any, url: string, rootQueryName: string, rootMutationName: string): string {
@@ -10,33 +11,30 @@ class Postman {
         collection.info.name = url;
         let baseUrlVar = new Variable('base_url', url);
         collection.addVariable(baseUrlVar);
-        const types = schema.data.__schema.types;
+        const types: IntrospectionSchema["types"] = schema.data.__schema.types;
 
 
         types.forEach(type => {
-            if (type.name == rootQueryName || type.name == rootMutationName) {
+            if (Utils.isRootQuery(type, rootQueryName) || Utils.isRootMutation(type, rootMutationName)) {
                 let folder = new Folder(type.name);
 
                 type.fields.forEach(query => {
                     let schemaType = type.name == rootQueryName ? "query" : "mutation";
-                    let returnType;
-                    let returnFields;
+                    let returnType:  IntrospectionType;
+                    let returnFields: string = "";
 
-                    if (query.type.name != null) {
-                        returnType = _.find(types, ['name', query.type.name]);
+                    if ("name" in query.type && query.type.name != null) {
+                        returnType = find(types, ['name', query.type.name]) as IntrospectionType;
                         returnFields = Utils.buildReturnFields(returnType);
                     }
 
-                    if (query.type.ofType != null && query.type.ofType.kind !== "LIST") {
-                        returnType = _.find(types, ['name', query.type.ofType.name]);
+                    if ("ofType" in query.type && query.type.ofType != null && query.type.ofType.kind !== "LIST") {
+                        returnType = find(types, ['name', query.type.ofType.name]) as IntrospectionType;
                         returnFields = Utils.buildReturnFields(returnType);
                     }
 
                     let item = new Item(query.name);
-                    let request = new Request({
-                        url: '{{base_url}}',
-                        method: 'POST'
-                    });
+                    let request = new Request('{{base_url}}', 'POST');
                     request.body.graphql = this.buildRequestBody(schemaType, query, returnFields)
                     item.request = request;
                     folder.addItem(item);
@@ -48,7 +46,7 @@ class Postman {
         return data;
     }
 
-    buildRequestBody(schemaType: string, query: any, returnFields: string) : PostmanRequestBody["graphql"] {
+    buildRequestBody(schemaType: string, query: IntrospectionField, returnFields: string) : PostmanRequestBody["graphql"] {
         let endpointArgs = Utils.buildEndpointArgs(query.args);
         let queryArgs = Utils.buildQueryArgs(query.args);
         let bodyText =  schemaType+" "+queryArgs+" { \n\t"+query.name+" "+endpointArgs+" {\n"+returnFields+"\n\t} \n}"

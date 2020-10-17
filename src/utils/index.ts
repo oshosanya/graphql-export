@@ -1,6 +1,8 @@
+import { IntrospectionInputValue, IntrospectionObjectType, IntrospectionType } from "graphql";
+
 class Utils {
 
-    static buildQueryArgs(args : any[]) : string {
+    static buildQueryArgs(args : readonly any[]) : string {
         if (args.length == 0) {
             return '';
         }
@@ -20,7 +22,7 @@ class Utils {
         return argString;
     }
 
-    static buildEndpointArgs(args: any[]) : string {
+    static buildEndpointArgs(args: readonly IntrospectionInputValue[]) : string {
         if (args.length == 0) {
             return '';
         }
@@ -36,21 +38,31 @@ class Utils {
         return argString;
     }
 
-    static buildVariables(args: any[]) : string {
-        let variables = {};
+    static buildVariables(args: readonly IntrospectionInputValue[]) : string {
+        let variables: Record<string, string> = {};
         for (let i = 0; i < args.length; i++) {
             variables[args[i].name] = '';
         }
         return JSON.stringify(variables);
     }
 
-    static buildReturnFields(returnType: any) : string {
+    static buildReturnFields(returnType: IntrospectionType) : string {
 
         let returnValues: string = '';
-        returnType.fields.forEach((field, idx) => {
-            returnValues += '\t\t' + (field.name + (idx == returnType.fields.length - 1 ? '' : '\n'));
-        })
-        return returnValues
+        if ("fields" in returnType) {
+            returnType.fields.forEach((field, idx) => {
+                returnValues += '\t\t' + (field.name + (idx == returnType.fields.length - 1 ? '' : '\n'));
+            })
+        }
+        return returnValues;
+    }
+
+    static isRootQuery(type: IntrospectionType, rootQueryName: string): type is IntrospectionObjectType {
+        return type.name === rootQueryName;
+    }
+
+    static isRootMutation(type: IntrospectionType, rootMutationName: string): type is IntrospectionObjectType {
+        return type.name === rootMutationName;
     }
 }
 

@@ -102,7 +102,7 @@ const
     `;
 
 const convert = async function (url: string, converter: string, rootQueryName: string, rootMutationName: string, headers: Array<string>) {
-    let requestHeaders = {};
+    let requestHeaders: Record<string, string> = {};
     headers.forEach(header => {
         const [key, value] = header.split(':');
         requestHeaders[key.trim()] = value.trim();

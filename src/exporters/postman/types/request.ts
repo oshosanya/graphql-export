@@ -17,15 +17,16 @@ export interface PostmanRequestBody {
 }
 
 class Request {
-    url: string
-    method: HTTPMethod
-    description: Maybe<string>;
-    headers: Array<Header>
-    body: PostmanRequestBody
-
-    constructor({ url, method, headers = [], body = defaultBody }) {
+    constructor(
+        public url: string,
+        public method: HTTPMethod,
+        public description?: Maybe<string>,
+        public headers: Array<Header> = [],
+        public body: PostmanRequestBody = defaultBody,
+    ) {
         this.url = url;
         this.method = method;
+        this.description = description;
         this.headers = headers;
         this.body = body;
     }

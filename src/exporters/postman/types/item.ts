@@ -2,11 +2,11 @@ import Variable from "./variable";
 import Request from "./request";
 
 class Item {
-    id: string;
     name: string;
-    description: string;
     variable: Array<Variable> = [];
-    request: Request;
+    id: Maybe<string>;
+    description: Maybe<string>;
+    request: Maybe<Request>;
 
     constructor (name: string) {
         this.name = name;

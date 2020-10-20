@@ -1,6 +1,7 @@
 import { Collection, Folder, Item, Request } from './types';
 import Utils from '../../utils'
 import Variable from './types/variable';
+import type { PostmanRequestBody } from './types/request';
 const _ = require('lodash/collection');
 
 class Postman {
@@ -32,9 +33,10 @@ class Postman {
                     }
 
                     let item = new Item(query.name);
-                    let request = new Request;
-                    request.url = '{{base_url}}';
-                    request.method = 'POST';
+                    let request = new Request({
+                        url: '{{base_url}}',
+                        method: 'POST'
+                    });
                     request.body.graphql = this.buildRequestBody(schemaType, query, returnFields)
                     item.request = request;
                     folder.addItem(item);
@@ -46,7 +48,7 @@ class Postman {
         return data;
     }
 
-    buildRequestBody(schemaType: string, query: any, returnFields: string) : object {
+    buildRequestBody(schemaType: string, query: any, returnFields: string) : PostmanRequestBody["graphql"] {
         let endpointArgs = Utils.buildEndpointArgs(query.args);
         let queryArgs = Utils.buildQueryArgs(query.args);
         let bodyText =  schemaType+" "+queryArgs+" { \n\t"+query.name+" "+endpointArgs+" {\n"+returnFields+"\n\t} \n}"

@@ -25,7 +25,7 @@ After running the command, an `export.json` file is generated which you can then
 ## Passing custom headers
 
 You might need to pass headers to your graphql server, sometimes for authentication.
-You can do that using the `-H` option. 
+You can do that using the `-H` option.
 
 Example
 

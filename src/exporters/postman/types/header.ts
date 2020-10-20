@@ -2,7 +2,7 @@ class Header {
     key: string;
     value: string;
     disabled: boolean = false;
-    description: string;
+    description: Maybe<string>;
 
     constructor (key: string, value: string) {
         this.key = key;

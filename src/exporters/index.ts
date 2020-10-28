@@ -3,6 +3,8 @@ import Insomnia from './insomnia/insomnia';
 import Postman from './postman/postman';
 
 const fs = require('fs');
+const chalk = require('chalk');
+
 const
     instrospectionQuery = `
         query IntrospectionQuery {
@@ -117,7 +119,11 @@ const convert = async function (url: string, converter: string, rootQueryName: s
         fs.writeFileSync('export.json', data);
         console.log("File saved to export.json");
     } catch (err) {
-        console.log(err);
+        if (err.isAxiosError) {
+            console.info(chalk.red('Response from server: ' + chalk.italic.bgRed.black(` ${err.response.data} `)));
+            process.exit(1);
+        }
+        console.log(err)
         console.log('Could not introspect graphql server, please check the root url')
     }
 }

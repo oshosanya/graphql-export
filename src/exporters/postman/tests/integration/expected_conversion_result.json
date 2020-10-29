@@ -7,8 +7,8 @@
         {
             "name": "Query",
             "description": "",
-            "variable": [],
-            "item": [
+            "variables": [],
+            "items": [
                 {
                     "variable": [],
                     "name": "rootQuery1",
@@ -46,8 +46,8 @@
         {
             "name": "Mutation",
             "description": "",
-            "variable": [],
-            "item": [
+            "variables": [],
+            "items": [
                 {
                     "variable": [],
                     "name": "rootMutation1",

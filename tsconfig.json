@@ -3,6 +3,7 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "isolatedModules": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitReturns": true,

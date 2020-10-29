@@ -130,9 +130,8 @@ const convert = async function (url: string, converter: string, rootQueryName: s
 
 const getSchema = (url: string, query: string, requestHeaders: object) => {
     return axios.post(url, {
-        query: query,
-        headers: requestHeaders
-    })
+        query: query
+    }, { headers: requestHeaders })
 }
 
 export { convert };

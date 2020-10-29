@@ -4,18 +4,18 @@ import Item from './item';
 class Folder {
     name: string = "";
     description: string = "";
-    variable: Array<Variable> = [];
-    item: Array<Item> = [];
+    variables: Array<Variable> = [];
+    items: Array<Item> = [];
 
     constructor (name: string) {
         this.name = name;
     }
     addVariable (variable: Variable) {
-        this.variable.push(variable);
+        this.variables.push(variable);
     }
 
     addItem (item: Item) {
-        this.item.push(item);
+        this.items.push(item);
     }
 }
 

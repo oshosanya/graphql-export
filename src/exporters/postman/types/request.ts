@@ -1,12 +1,12 @@
 import Header from "./header";
 
-const defaultBody = {
+const defaultBody = () => ({
     mode: 'graphql',
     graphql: {
         query: '',
         variables: '',
     }
-} as const
+} as const)
 
 export interface PostmanRequestBody {
     mode: 'graphql';
@@ -22,7 +22,7 @@ class Request {
         public method: HTTPMethod,
         public description?: Maybe<string>,
         public headers: Array<Header> = [],
-        public body: PostmanRequestBody = defaultBody,
+        public body: PostmanRequestBody = defaultBody(),
     ) {
         this.url = url;
         this.method = method;

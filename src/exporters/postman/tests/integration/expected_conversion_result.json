@@ -1,0 +1,76 @@
+{
+    "info": {
+        "name": "http://localhost:3000",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Query",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "variable": [],
+                    "name": "rootQuery1",
+                    "request": {
+                        "url": "{{base_url}}",
+                        "method": "POST",
+                        "headers": [],
+                        "body": {
+                            "mode": "graphql",
+                            "graphql": {
+                                "query": "query ($var1: null) { \n\trootQuery1 (var1: $var1) {\n\t\tid\n\t\tarray\n\t\trelation\n\t} \n}",
+                                "variables": "{\"var1\":\"\"}"
+                            }
+                        }
+                    }
+                },
+                {
+                    "variable": [],
+                    "name": "rootQuery2",
+                    "request": {
+                        "url": "{{base_url}}",
+                        "method": "POST",
+                        "headers": [],
+                        "body": {
+                            "mode": "graphql",
+                            "graphql": {
+                                "query": "query  { \n\trootQuery2  {\n\t\tid\n\t\tarray\n\t\trelation\n\t} \n}",
+                                "variables": "{}"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Mutation",
+            "description": "",
+            "variables": [],
+            "items": [
+                {
+                    "variable": [],
+                    "name": "rootMutation1",
+                    "request": {
+                        "url": "{{base_url}}",
+                        "method": "POST",
+                        "headers": [],
+                        "body": {
+                            "mode": "graphql",
+                            "graphql": {
+                                "query": "mutation ($var2: null,$var3: null) { \n\trootMutation1 (var2: $var2,var3: $var3) {\n\t\tsuccess\n\t\tcode\n\t\terrors\n\t} \n}",
+                                "variables": "{\"var2\":\"\",\"var3\":\"\"}"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:3000"
+        }
+    ]
+}

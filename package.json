@@ -31,6 +31,8 @@
     "@types/lodash": "^4.14.162",
     "@types/lodash.find": "^4.6.6",
     "@types/node": "^12.19.2",
+    "apollo-server": "^2.18.2",
+    "apollo-server-testing": "^2.18.2",
     "ts-jest": "^25.4.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"

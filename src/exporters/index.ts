@@ -1,107 +1,10 @@
 import axios from 'axios';
 import Insomnia from './insomnia/insomnia';
 import Postman from './postman/postman';
+import { instrospectionQueryString } from "./introspection_query";
 
 const fs = require('fs');
 const chalk = require('chalk');
-
-const
-    instrospectionQuery = `
-        query IntrospectionQuery {
-            __schema {
-                queryType {
-                    name
-                }
-                mutationType {
-                    name
-                }
-                types {
-                    ...FullType
-                }
-                directives {
-                    name
-                    description
-                    locations
-                    args {
-                        ...InputValue
-                    }
-                }
-            }
-        }
-        fragment FullType on __Type {
-            kind
-            name
-            description
-            fields(includeDeprecated: true) {
-                name
-                description
-                args {
-                    ...InputValue
-                }
-                type {
-                    ...TypeRef
-                }
-                isDeprecated
-                deprecationReason
-            }
-            inputFields {
-                ...InputValue
-            }
-            interfaces {
-                ...TypeRef
-            }
-            enumValues(includeDeprecated: true) {
-                name
-                description
-                isDeprecated
-                deprecationReason
-            }
-            possibleTypes {
-                ...TypeRef
-            }
-        }
-        fragment InputValue on __InputValue {
-            name
-            description
-            type {
-                ...TypeRef
-            }
-            defaultValue
-        }
-        fragment TypeRef on __Type {
-            kind
-            name
-            ofType {
-                kind
-                name
-                ofType {
-                    kind
-                    name
-                    ofType {
-                        kind
-                        name
-                        ofType {
-                            kind
-                            name
-                            ofType {
-                                kind
-                                name
-                                ofType {
-                                    kind
-                                    name
-                                    ofType {
-                                        kind
-                                        name
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    `;
 
 const convert = async function (url: string, converter: string, rootQueryName: string, rootMutationName: string, headers: Array<string>) {
     let requestHeaders: Record<string, string> = {};
@@ -113,7 +16,7 @@ const convert = async function (url: string, converter: string, rootQueryName: s
     const formatConverter = require(`./${converter}/${converter}`);
 
     try {
-        let response = await getSchema(url, instrospectionQuery, requestHeaders);
+        let response = await getSchema(url, instrospectionQueryString, requestHeaders);
         const converter: Insomnia | Postman = Object.create(formatConverter.default.prototype)
         let data = converter.convert(response.data, url, rootQueryName, rootMutationName)
         fs.writeFileSync('export.json', data);

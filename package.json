@@ -33,7 +33,7 @@
     "@types/node": "^12.19.2",
     "apollo-server": "^2.18.2",
     "apollo-server-testing": "^2.18.2",
-    "ts-jest": "^25.4.0",
+    "ts-jest": "^24.1.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   },

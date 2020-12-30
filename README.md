@@ -1,6 +1,6 @@
 # graphql-export
 
-This is a teeny tiny program that helps to export your graphql queries from the server to insomnia graphql requests
+This is a teeny tiny program that helps to export your graphql queries from the server to insomnia/postman graphql request collections
 
 ## Requirements
 Yarn package manager

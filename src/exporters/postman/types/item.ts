@@ -1,5 +1,6 @@
 import Variable from "./variable";
 import Request from "./request";
+import {Maybe} from "../../../@types/global";
 
 class Item {
     name: string;

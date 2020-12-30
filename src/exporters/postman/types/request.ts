@@ -1,4 +1,5 @@
 import Header from "./header";
+import {HTTPMethod, Maybe} from "../../../@types/global";
 
 const defaultBody = () => ({
     mode: 'graphql',

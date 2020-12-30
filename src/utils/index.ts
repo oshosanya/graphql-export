@@ -49,7 +49,8 @@ class Utils {
     static buildReturnFields(returnType: IntrospectionType) : string {
 
         let returnValues: string = '';
-        if ("fields" in returnType) {
+
+        if ("fields" in returnType && returnType['fields']) {
             returnType.fields.forEach((field, idx) => {
                 returnValues += '\t\t' + (field.name + (idx == returnType.fields.length - 1 ? '' : '\n'));
             })

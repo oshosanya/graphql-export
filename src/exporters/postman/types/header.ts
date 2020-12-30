@@ -1,3 +1,5 @@
+import {Maybe} from "../../../@types/global";
+
 class Header {
     key: string;
     value: string;

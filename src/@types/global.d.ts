@@ -1,2 +1,2 @@
-declare type Maybe<T> = T | null | undefined;
-declare type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
+export type Maybe<T> = T | null | undefined;
+export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'

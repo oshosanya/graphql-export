@@ -1,3 +1,5 @@
+import {Maybe} from "../../../@types/global";
+
 class Variable {
     key: string;
     value: string;

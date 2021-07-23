@@ -12,8 +12,5 @@
     "strict": true,
     "target": "es3"
   },
-  "include": ["./src/"],
-  "paths": {
-    "apollo-cache-control": ["node_modules/apollo-cache-control"]
-  }
+  "include": ["./src/"]
 }

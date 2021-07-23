@@ -1,3 +1,5 @@
+import { Maybe } from 'graphql/jsutils/Maybe';
+import { HTTPMethod } from '../../../@types/global';
 import RequestBody from './request_body';
 
 class Request {

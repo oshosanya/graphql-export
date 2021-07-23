@@ -1,5 +1,5 @@
-import { gql, ApolloServer, makeExecutableSchema } from 'apollo-server';
-import { createTestClient } from 'apollo-server-testing';
+import { gql, ApolloServer } from 'apollo-server';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { instrospectionQueryString } from '../../introspection_query';
 
 const typeDefs = gql`
@@ -49,11 +49,10 @@ export async function generateFakeSchemaAndIntrospectionResult() {
   const fs = require('fs');
   const path = require("path");
   const server = constructTestServer()
-  const { query } = createTestClient(server);
   const instrospectionQuery = gql`${instrospectionQueryString}`
   const params = { query: instrospectionQuery };
 
-  const { data } = await query(params);
+  const { data } = await server.executeOperation(params);
 
   fs.writeFileSync(
     path.resolve(__dirname, "./test_introspection_result.json"),

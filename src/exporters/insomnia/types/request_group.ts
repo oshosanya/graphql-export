@@ -1,3 +1,5 @@
+import { Maybe } from "graphql/jsutils/Maybe";
+
 class RequestGroup {
     _type: string = "request_group";
     _id: string;

@@ -1,3 +1,5 @@
+import { Maybe } from "graphql/jsutils/Maybe";
+
 class Root {
     _type: string = "export";
     __export_format: number = 3;

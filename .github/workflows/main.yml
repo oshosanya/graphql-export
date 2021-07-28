@@ -27,7 +27,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Lint
-        run: npm run lint
+        run: |
+          npm install
+          npm run lint
 
       # Runs a set of commands using the runners shell
       - name: Test

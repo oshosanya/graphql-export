@@ -1,8 +1,8 @@
 import { Maybe } from "graphql/jsutils/Maybe";
 
 class Root {
-    _type: string = "export";
-    __export_format: number = 3;
+    _type = "export";
+    __export_format = 3;
     resources: any[] = [];
     __export_date: Maybe<string>;
     __export_source: Maybe<string>;

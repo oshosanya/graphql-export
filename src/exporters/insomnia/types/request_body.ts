@@ -1,9 +1,9 @@
 class RequestBody {
-    mimeType: string = "application/graphql";
-    text: string = "";
+    mimeType = "application/graphql";
+    text = "";
 
     constructor(text: string, variables: string) {
-        let tempText: any = {};
+        const tempText: any = {};
         tempText.query = text;
         tempText.variables = variables;
         this.text = JSON.stringify(tempText);

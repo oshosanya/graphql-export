@@ -10,6 +10,7 @@ class Folder {
     constructor (name: string) {
         this.name = name;
     }
+    
     addVariable (variable: Variable) {
         this.variables.push(variable);
     }

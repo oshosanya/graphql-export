@@ -31,7 +31,11 @@
     "@types/lodash": "^4.14.162",
     "@types/lodash.find": "^4.6.6",
     "@types/node": "^16.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
     "apollo-server": "^3.0.2",
+    "eslint": "^7.31.0",
+    "husky": "^7.0.1",
     "ts-jest": "^27.0.0",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
@@ -41,7 +45,8 @@
     "prepublish": "tsc",
     "build": "tsc",
     "test": "jest",
-    "testWithCoverage": "jest --coverage"
+    "testWithCoverage": "jest --coverage",
+    "lint": "npx eslint ./src --ext .js,.jsx,.ts,.tsx --quiet"
   },
   "bin": {
     "graphql-export": "dist/index.js"

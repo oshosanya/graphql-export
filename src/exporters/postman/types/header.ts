@@ -3,7 +3,7 @@ import {Maybe} from "../../../@types/global";
 class Header {
     key: string;
     value: string;
-    disabled: boolean = false;
+    disabled = false;
     description: Maybe<string>;
 
     constructor (key: string, value: string) {

@@ -5,7 +5,7 @@ class Collection {
         name: '',
         schema: 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'
     };
-    item: Array<object> = [];
+    item: Array<Record<string, any>> = [];
     variable: Array<Variable> = [];
 
     addItem(item: any) {

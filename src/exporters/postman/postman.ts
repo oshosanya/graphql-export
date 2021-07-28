@@ -7,21 +7,21 @@ import { IntrospectionField, IntrospectionSchema, IntrospectionType } from 'grap
 
 class Postman {
     convert(schema: any, url: string, rootQueryName: string, rootMutationName: string): string {
-        let collection = new Collection;
+        const collection = new Collection;
         collection.info.name = url;
-        let baseUrlVar = new Variable('base_url', url);
+        const baseUrlVar = new Variable('base_url', url);
         collection.addVariable(baseUrlVar);
         const types: IntrospectionSchema["types"] = schema.data.__schema.types;
 
 
         types.forEach(type => {
             if (Utils.isRootQuery(type, rootQueryName) || Utils.isRootMutation(type, rootMutationName)) {
-                let folder = new Folder(type.name);
+                const folder = new Folder(type.name);
 
                 type.fields.forEach(query => {
-                    let schemaType = type.name == rootQueryName ? "query" : "mutation";
-                    let returnType:  IntrospectionType;
-                    let returnFields: string = "";
+                    const schemaType = type.name == rootQueryName ? "query" : "mutation";
+                    let returnType: IntrospectionType;
+                    let returnFields = "";
 
                     if ("name" in query.type && query.type.name != null) {
                         returnType = find(types, ['name', query.type.name]) as IntrospectionType;
@@ -33,8 +33,8 @@ class Postman {
                         returnFields = Utils.buildReturnFields(returnType);
                     }
 
-                    let item = new Item(query.name);
-                    let request = new Request('{{base_url}}', 'POST');
+                    const item = new Item(query.name);
+                    const request = new Request('{{base_url}}', 'POST');
                     request.body.graphql = this.buildRequestBody(schemaType, query, returnFields)
                     item.request = request;
                     folder.addItem(item);
@@ -42,15 +42,15 @@ class Postman {
                 collection.addItem(folder);
             }
         });
-        let data = JSON.stringify(collection, null, 4);
+        const data = JSON.stringify(collection, null, 4);
         return data;
     }
 
     buildRequestBody(schemaType: string, query: IntrospectionField, returnFields: string) : PostmanRequestBody["graphql"] {
-        let endpointArgs = Utils.buildEndpointArgs(query.args);
-        let queryArgs = Utils.buildQueryArgs(query.args);
-        let bodyText =  schemaType+" "+queryArgs+" { \n\t"+query.name+" "+endpointArgs+" {\n"+returnFields+"\n\t} \n}"
-        let variables = Utils.buildVariables(query.args);
+        const endpointArgs = Utils.buildEndpointArgs(query.args);
+        const queryArgs = Utils.buildQueryArgs(query.args);
+        const bodyText =  schemaType+" "+queryArgs+" { \n\t"+query.name+" "+endpointArgs+" {\n"+returnFields+"\n\t} \n}"
+        const variables = Utils.buildVariables(query.args);
         return {
             query: bodyText,
             variables: variables

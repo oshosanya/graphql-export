@@ -3,7 +3,7 @@ import { HTTPMethod } from '../../../@types/global';
 import RequestBody from './request_body';
 
 class Request {
-    _type: string = "request";
+    _type = "request";
     _id: string;
     created: number;
     name: string;
@@ -15,7 +15,7 @@ class Request {
     body: Maybe<RequestBody>;
 
     constructor(name: string) {
-        var ts = Math.round((new Date()).getTime() / 1000);
+        const ts = Math.round((new Date()).getTime() / 1000);
         this.name = name;
         this._id = name + ts;
         this.created = ts;

@@ -7,7 +7,7 @@ const fs = require('fs');
 const chalk = require('chalk');
 
 const convert = async function (url: string, converter: string, rootQueryName: string, rootMutationName: string, headers: Array<string>) {
-    let requestHeaders: Record<string, string> = {};
+    const requestHeaders: Record<string, string> = {};
     headers.forEach(header => {
         const [key, value] = header.split(':');
         requestHeaders[key.trim()] = value.trim();
@@ -16,9 +16,9 @@ const convert = async function (url: string, converter: string, rootQueryName: s
     const formatConverter = require(`./${converter}/${converter}`);
 
     try {
-        let response = await getSchema(url, instrospectionQueryString, requestHeaders);
+        const response = await getSchema(url, instrospectionQueryString, requestHeaders);
         const converter: Insomnia | Postman = Object.create(formatConverter.default.prototype)
-        let data = converter.convert(response.data, url, rootQueryName, rootMutationName)
+        const data = converter.convert(response.data, url, rootQueryName, rootMutationName)
         fs.writeFileSync('export.json', data);
         console.log("File saved to export.json");
     } catch (err) {
@@ -31,7 +31,7 @@ const convert = async function (url: string, converter: string, rootQueryName: s
     }
 }
 
-const getSchema = (url: string, query: string, requestHeaders: object) => {
+const getSchema = (url: string, query: string, requestHeaders: Record<string, any>) => {
     return axios.post(url, {
         query: query
     }, { headers: requestHeaders })

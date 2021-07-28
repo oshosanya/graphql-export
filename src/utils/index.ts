@@ -39,7 +39,7 @@ class Utils {
     }
 
     static buildVariables(args: readonly IntrospectionInputValue[]) : string {
-        let variables: Record<string, string> = {};
+        const variables: Record<string, string> = {};
         for (let i = 0; i < args.length; i++) {
             variables[args[i].name] = '';
         }
@@ -48,7 +48,7 @@ class Utils {
 
     static buildReturnFields(returnType: IntrospectionType) : string {
 
-        let returnValues: string = '';
+        let returnValues = '';
 
         if ("fields" in returnType && returnType['fields']) {
             returnType.fields.forEach((field, idx) => {

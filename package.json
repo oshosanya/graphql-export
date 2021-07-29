@@ -1,6 +1,6 @@
 {
   "name": "graphql-export",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Export graphql schema to other formats",
   "keywords": [
     "graphql-export",

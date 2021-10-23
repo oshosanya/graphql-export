@@ -19,7 +19,9 @@ graphql-export -u http://my-graph-ql-server-root -f postman
 graphql-export -u http://my-graph-ql-server-root -f insomnia
 ```
 
-After running the command, an `export.json` file is generated which you can then import into insomnia api client
+After running the command, an `export.json` file is generated which you can then import into insomnia or postman api client.
+
+For insomnia, you might need to first create a folder and then import the file into it.
 
 
 ## Passing custom headers

@@ -46,7 +46,7 @@
     "build": "tsc",
     "test": "jest",
     "testWithCoverage": "jest --coverage",
-    "lint": "npx eslint ./src --ext .js,.jsx,.ts,.tsx --quiet"
+    "lint": "npx eslint ./src --ext .js,.jsx,.ts,.tsx"
   },
   "bin": {
     "graphql-export": "dist/index.js"

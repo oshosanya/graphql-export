@@ -21,7 +21,7 @@ const convert = async function (url: string, converter: string, rootQueryName: s
         const data = converter.convert(response.data, url, rootQueryName, rootMutationName)
         fs.writeFileSync('export.json', data);
         console.log("File saved to export.json");
-    } catch (err) {
+    } catch (err: any) {
         if (err.isAxiosError) {
             console.info(chalk.red('Response from server: ' + chalk.italic.bgRed.black(` ${err.response.data} `)));
             process.exit(1);

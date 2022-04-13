@@ -6,7 +6,7 @@ import { instrospectionQueryString } from "./introspection_query";
 const fs = require('fs');
 const chalk = require('chalk');
 
-const convert = async function (url: string, converter: string, rootQueryName: string, rootMutationName: string, headers: Array<string>) {
+const convert = async function (url: string, converter: string, rootQueryName: string, rootMutationName: string, headers: Array<string>): Promise<void> {
     const requestHeaders: Record<string, string> = {};
     headers.forEach(header => {
         const [key, value] = header.split(':');
@@ -23,7 +23,8 @@ const convert = async function (url: string, converter: string, rootQueryName: s
         console.log("File saved to export.json");
     } catch (err: any) {
         if (err.isAxiosError) {
-            console.info(chalk.red('Response from server: ' + chalk.italic.bgRed.black(` ${err.response.data} `)));
+            console.log(err.message)
+            console.info(chalk.red('Response from server: ' + chalk.italic.bgRed.black(` ${err.response?.data || ''} `)));
             process.exit(1);
         }
         console.log(err)

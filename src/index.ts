@@ -6,7 +6,6 @@ const clear = require('clear');
 const figlet = require('figlet');
 const yargs = require('yargs');
 
-clear();
 console.log(
     chalk.green(
         figlet.textSync('graphql-export', { horizontalLayout: 'full' })

@@ -23,7 +23,7 @@ const convert = async function (url: string, converter: string, rootQueryName: s
         console.log("File saved to export.json");
     } catch (err: any) {
         if (err.isAxiosError) {
-            console.log(err.message)
+            console.log(chalk.red(err.message));
             console.info(chalk.red('Response from server: ' + chalk.italic.bgRed.black(` ${err.response?.data || ''} `)));
             process.exit(1);
         }

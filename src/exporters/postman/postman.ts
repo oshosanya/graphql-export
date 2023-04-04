@@ -3,7 +3,7 @@ import Utils from '../../utils'
 import Variable from './types/variable';
 import type { PostmanRequestBody } from './types/request';
 import find = require('lodash/find');
-import { IntrospectionField, IntrospectionSchema, IntrospectionType } from 'graphql';
+import { IntrospectionField, IntrospectionSchema, IntrospectionType, IntrospectionScalarType } from 'graphql';
 
 class Postman {
     convert(schema: any, url: string, rootQueryName: string, rootMutationName: string): string {
@@ -29,7 +29,7 @@ class Postman {
                     }
 
                     if ("ofType" in query.type && query.type.ofType != null && query.type.ofType.kind !== "LIST") {
-                        returnType = find(types, ['name', query.type.ofType.name]) as IntrospectionType;
+                        returnType = find(types, ['name', (query.type.ofType as IntrospectionScalarType).name]) as IntrospectionType;
                         returnFields = Utils.buildReturnFields(returnType);
                     }
 
@@ -46,10 +46,10 @@ class Postman {
         return data;
     }
 
-    buildRequestBody(schemaType: string, query: IntrospectionField, returnFields: string) : PostmanRequestBody["graphql"] {
+    buildRequestBody(schemaType: string, query: IntrospectionField, returnFields: string): PostmanRequestBody["graphql"] {
         const endpointArgs = Utils.buildEndpointArgs(query.args);
         const queryArgs = Utils.buildQueryArgs(query.args);
-        const bodyText =  schemaType+" "+queryArgs+" { \n\t"+query.name+" "+endpointArgs+" {\n"+returnFields+"\n\t} \n}"
+        const bodyText = schemaType + " " + queryArgs + " { \n\t" + query.name + " " + endpointArgs + " {\n" + returnFields + "\n\t} \n}"
         const variables = Utils.buildVariables(query.args);
         return {
             query: bodyText,

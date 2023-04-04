@@ -1,6 +1,6 @@
 import { Root, RequestGroup, Request, RequestBody } from './types';
 import find = require('lodash/find');
-import type { IntrospectionField, IntrospectionSchema, IntrospectionType } from 'graphql'
+import type { IntrospectionField, IntrospectionScalarType, IntrospectionSchema, IntrospectionType } from 'graphql'
 import Utils from "../../utils";
 
 class Insomnia {
@@ -29,7 +29,7 @@ class Insomnia {
                     }
 
                     if ("ofType" in query.type && query.type.ofType != null && query.type.ofType.kind !== "LIST") {
-                        returnType = find(types, ['name', query.type.ofType.name]) as IntrospectionType;
+                        returnType = find(types, ['name', (query.type.ofType as IntrospectionScalarType).name]) as IntrospectionType; // eslint-disable-line
                         returnFields = Utils.buildReturnFields(returnType);
                     }
 
@@ -43,10 +43,10 @@ class Insomnia {
         return data;
     }
 
-    buildRequestText(schemaType: string, query: IntrospectionField, returnFields: string) : RequestBody {
+    buildRequestText(schemaType: string, query: IntrospectionField, returnFields: string): RequestBody {
         const endpointArgs = Utils.buildEndpointArgs(query.args);
         const queryArgs = Utils.buildQueryArgs(query.args);
-        const bodyText =  schemaType+" "+queryArgs+" { \n\t"+query.name+" "+endpointArgs+" {\n"+returnFields+"\n\t} \n}"
+        const bodyText = schemaType + " " + queryArgs + " { \n\t" + query.name + " " + endpointArgs + " {\n" + returnFields + "\n\t} \n}"
         const variables = Utils.buildVariables(query.args);
         const requestBody: RequestBody = new RequestBody(bodyText, variables);
         return requestBody

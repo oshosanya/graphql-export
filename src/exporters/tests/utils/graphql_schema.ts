@@ -45,7 +45,7 @@ const constructTestServer = () => new ApolloServer({ schema, mocks })
 
 
 // Run this function everytime a change is made to the typeDefs
-export async function generateFakeSchemaAndIntrospectionResult() {
+export async function generateFakeSchemaAndIntrospectionResult(): Promise<void> {
   const fs = require('fs');
   const path = require("path");
   const server = constructTestServer()
